@@ -1,5 +1,6 @@
 from django.urls import path, include
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('accounts/register/', views.signup, name='signup'),
@@ -11,6 +12,7 @@ urlpatterns = [
     path('unfollow/<unfollowing>', views.unfollow, name='unfollow'),
     path('follow/<following>', views.follow, name='follow'),
     path('post/<id>', views.posting_comment, name='comment'),
-    path('like/', views.like_post, name='like_post'),
+    path('like/<post_id>', views.like_post, name='like_post'),
+    path('logout/', auth_views.LogoutView.as_view(), {"next_page": '/'}),
 
 ]

@@ -17,7 +17,7 @@ Python3.6
 Django 3.1.4  
 Heroku  
 ### Known Bugs
-The app isnt fully responsive yet!
+No issues known at this time! 
 
 ### Contact Information
 If you have any question or contributions, please email me at [ucynthy13@gmail.com]

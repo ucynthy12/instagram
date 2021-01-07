@@ -32,8 +32,35 @@
                         display: block;
 
                 }
-                body{
+
+                body {
                         background-color: rgb(243, 241, 241);
+                }
+
+                .dropdown-toggle::after {
+                        content: none;
+                }
+
+                .dropdown-menu {
+                        margin-left: -30px;
+                        padding-top: 10px;
+
+                }
+
+                @media screen and (max-width: 768px) {
+                        .nav-link {
+                                display: none;
+
+                        }
+
+                        .dropdown-item {
+                                font-size: smaller;
+                        }
+
+                        .dropdown-menu {
+                                margin-left: -80px;
+                        }
+
                 }
         </style>
 

@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .forms import SignUpForm,PostForm,UpdateUserForm,CommentForm,UpdateUserProfileForm
 from django.contrib.auth import login, authenticate,logout
 from django.contrib import messages
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
 from .models import Post,Profile,Follow,Comment
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -120,25 +120,15 @@ def follow(request, following):
         follower.save()
         return redirect('user_profile', user_profs.user.username)
 
-def like_post(request):
+def like_post(request,post_id):
+    image = Post.objects.get(id=post_id)
+    user = request.user
+    image.likes.add(user)
+    image.save()
+    print(user)
+    return redirect('comment',post_id)
 
-    image = get_object_or_404(Post, id=request.POST.get('id'))
-    is_liked = False
-    if image.likes.filter(id=request.user.id).exists():
-        image.likes.remove(request.user)
-        is_liked = False
-    else:
-        image.likes.add(request.user)
-        is_liked = False
-
-    context = {
-        'image': image,
-        'is_liked': is_liked,
-        'total_likes': image.total_likes()
-    }
-    if request.is_ajax():
-        html = render_to_string('instagram/like_section.html',context, request=request)
-        return JsonResponse({'form': html})
+   
    
 @login_required(login_url='login')
 def posting_comment(request, id):
